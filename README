@@ -1,3 +1,37 @@
+## Docker CLI
+
+$ docker --help
+See that there are 'Management Commands' and 'Commands'
+
+To get the help for certain Management Command
+$ docker image --help
+
+To build the image with Dockerfile in the current directory
+$ docker image build -t web1 .
+Verify that WORKDIR step did nto create a separate layer
+
+Check the Layers
+$ docker image inspect web1
+
+Build an image with version specified, inspect and check the Repotags section of the inspect output
+$ docker image build -t web1:1.0.0 .
+$ docker image inspect web1
+
+List out all docker images
+$ docker image ls
+
+Remove image
+# docker image rm web:1.0.0
+
+Push image to Docker Hub, after tagging the image with Docker Hub username. Visit "hub.docker.com" to verify
+$ docker login
+$ docker image tag web1 rnella01/web1:latest
+$ docker image push rnella01/web1:latest
+
+Delete local copy of the image
+$ docker image rm -f <image-id>
+
+## Docker Compose
 To view a list of commands supported by docker-compose
 $ docker-compose --help
 
@@ -14,4 +48,38 @@ $ docker-compose pull
 
 To start the project
 $ docker-compose up
-Verify from the output that 'web2_default' network and 'web2_redis' volumes are created
+Verify from the console output that 'web2_default' network, 'web2_redis' volume and two container, each prefixed with 'web2' are created
+
+Access the web app
+$ curl localhost:5000
+
+To stop the services
+$ docker-compose stop
+
+A shortcut for 'build', 'pull' and 'up' & run in background (-d flag)
+$ docker-compose up --build -d
+
+To list all containers for the project
+$ docker-compose ps
+
+To tail the log output
+$ docker-compose logs -f
+
+To restart all containers
+$ docker-compose restart
+To restart specific services
+$ docker-compose restart <service names> 
+
+To execute a command on a particular container
+$ docker-compose exec web ls -la
+
+To get into the shell of certain container
+$ docker-compose exec web sh
+Note that -it is not required with docker-compose
+
+To start only a specific service
+$ docker-compose up redis
+This only starts the redis service
+
+To remove stopped containers
+$ docker-compose rm
