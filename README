@@ -1,0 +1,17 @@
+To view a list of commands supported by docker-compose
+$ docker-compose --help
+
+To build the 'web' image
+$ docker-compose build
+This connamd will look for any services that have a 'build' connamd specified
+
+To verify the image is created
+$ docker image ls
+note that the image is perfixed with 'web2', a property from the '.env' file: COMPOSE_PROJECT_NAME=web2
+
+To pull down any docker images that are required based on 'docker-compose.yml'
+$ docker-compose pull
+
+To start the project
+$ docker-compose up
+Verify from the output that 'web2_default' network and 'web2_redis' volumes are created
