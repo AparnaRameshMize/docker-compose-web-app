@@ -31,6 +31,21 @@ $ docker image push rnella01/web1:latest
 Delete local copy of the image
 $ docker image rm -f <image-id>
 
+### Running Docker Containers
+
+Run the Flask App
+$ docker cntainer run -it --rm --name web1 -p 5000:5000 -e FLASK_APP=app.py -d web1
+Verify with
+$ docker container ls
+Check logs with (-f flag lets you tail the logs)
+$ docker container logs -f web1
+Realtime metrics about running container
+$ docker container stats
+To restart a container if it crashes
+$ docker container run -it --name web1_3 -p 5000 -e FLASK_APP=app.py -d --restart on-failure web1
+
+==============
+
 ## Docker Compose
 To view a list of commands supported by docker-compose
 $ docker-compose --help

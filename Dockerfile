@@ -22,13 +22,18 @@ COPY . .
 ## Later all the cntents of the current directory (that also includes 'requirements.txt') are copied.
 ## This is deliberate to create a Layer that has all the dependencies and another Layer that has all the code artifcats - this will ensure that the cached dependencies layer is used each time an image is built with only the code changes (more common). The dependencies layer is only built when there is change in the Python dependencies, as specified in the 'requirements.txt' file.
 
+# Use LABEL to attach metadata to the image
 LABEL version="2.0"
+
 
 VOLUME ["/app/public"]
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
+
 # ENTRYPOINT instruction allows the execution of a script after the docker container starts
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+# CMD - the default command that will run when the container get started
+# RUN gets executed when the image is built vs CMD get executed when the comtainer is started
 CMD flask run --host=0.0.0.0 --port=5000

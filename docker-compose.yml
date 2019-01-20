@@ -1,6 +1,8 @@
 version: "3"
 
 services:
+  # Equivalent command from the cli would look like this
+  # $ docker container run --rm -itd -p 6379:6379 --name redis --network web2_default -v web2_redis:/data redis:3.2-alpine
   redis:
     image: "redis:3.2-alpine"
     ports:
@@ -8,6 +10,8 @@ services:
     volumes:
       - "redis:/data"
 
+  # Equivalent docker command from the cli would look like this
+  # $ docker container run --rm -itd -p 5000:5000 -e FLASK_APP=app.py -e FLASK_DEBUG=1 --name web2 -v $PWD:/app --network web2_default
   web:
     # Looks for 'Dockerfile' in the current directory
     build: .
